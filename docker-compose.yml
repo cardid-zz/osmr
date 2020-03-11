@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  osmr-routes:
+    build: ./
+    command: "run"
+    environment:
+      - DOWNLOAD_PBF=http://download.geofabrik.de/russia/siberian-fed-district-latest.osm.pbf
+    ports:
+    - "5000:5000"
