@@ -6,6 +6,7 @@ services:
     build: ./osm-data
     environment:
       - DOWNLOAD_PBF=http://download.geofabrik.de/russia/siberian-fed-district-latest.osm.pbf
+      - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
     volumes:
       - osm-file-data:/data
     command: "import"
@@ -21,6 +22,8 @@ services:
   osm-routes-import:
     container_name: osm-routes
     build: ./osmr-backend
+    depends_on:
+      - osm-data
     command: "import"
     volumes:
       - osm-file-data:/data
@@ -31,16 +34,23 @@ services:
     ports:
       - "7070:8080"
     command: "run"
+    environment:
+      - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
     volumes:
       - osm-file-data:/data
       - osm-geocoder-data:/var/lib/postgresql/11/main
   osm-geocoder-init:
     container_name: osm-geocoder
     build: ./geocoder
+    depends_on:
+      - osm-data
     command: "import"
+    environment:
+      - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
     volumes:
       - osm-file-data:/data
       - osm-geocoder-data:/var/lib/postgresql/11/main
+
 
 volumes:
   osm-file-data:
