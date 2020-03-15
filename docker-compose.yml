@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   osm-data:
@@ -27,31 +27,37 @@ services:
     command: "import"
     volumes:
       - osm-file-data:/data
+  osm-geocoder-import:
+    container_name: osm-geocoder-import
+    build: ./geocoder
+    command: "import"
+    volumes:
+      - osm-file-data:/data
+      - osm-postgres-data:/postgresdata
   osm-geocoder:
     container_name: osm-geocoder
     restart: always
     build: ./geocoder
     ports:
       - "7070:8080"
+      - "6432:5432"
     command: "run"
     environment:
       - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
     volumes:
       - osm-file-data:/data
-      - osm-geocoder-data:/var/lib/postgresql/11/main
-  osm-geocoder-init:
-    container_name: osm-geocoder
-    build: ./geocoder
-    depends_on:
-      - osm-data
-    command: "import"
-    environment:
-      - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
-    volumes:
-      - osm-file-data:/data
-      - osm-geocoder-data:/var/lib/postgresql/11/main
-
+      - osm-postgres-data:/var/lib/postgresql/11/main
 
 volumes:
   osm-file-data:
-  osm-geocoder-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/osm/data
+  osm-postgres-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/osm/postgresdata
