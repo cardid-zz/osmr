@@ -15,7 +15,7 @@ services:
     restart: always
     build: ./osmr-backend
     ports:
-    - "5000:5000"
+    - "7171:5000"
     command: "run"
     volumes:
       - osm-file-data:/data
