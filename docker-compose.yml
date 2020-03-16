@@ -22,8 +22,6 @@ services:
   osm-routes-import:
     container_name: osm-routes
     build: ./osmr-backend
-    depends_on:
-      - osm-data
     command: "import"
     volumes:
       - osm-file-data:/data
