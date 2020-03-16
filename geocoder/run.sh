@@ -29,6 +29,7 @@ if [ "$1" = "import" ]; then
 fi
 
 if [ "$1" = "run" ]; then
+
   bash /app/start.sh
 
   exit 0
