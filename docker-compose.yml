@@ -19,6 +19,11 @@ services:
     command: "run"
     volumes:
       - osm-file-data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
   osm-routes-import:
     container_name: osm-routes
     build: ./osmr-backend
@@ -45,6 +50,11 @@ services:
     volumes:
       - osm-file-data:/data
       - osm-postgres-data:/var/lib/postgresql/11/main
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
 
 volumes:
   osm-file-data:
