@@ -30,8 +30,6 @@ fi
 
 if [ "$1" = "run" ]; then
 
-  tryToImportPBF
-
   bash /app/start.sh
 
   exit 0
