@@ -4,6 +4,6 @@ set -x
 dir=$(dirname "$0")
 cd $dir
 
-docker-compose up osm-data &&
-docker-compose up osm-routes-import &&
-docker-compose restart osm-routes
+/usr/local/bin/docker-compose up osm-data &&
+/usr/local/bin/docker-compose up osm-routes-import &&
+/usr/local/bin/docker-compose restart osm-routes
