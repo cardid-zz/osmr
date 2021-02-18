@@ -1,7 +1,7 @@
 <?php
  // Paths
- @define('CONST_Postgresql_Version', '11');
- @define('CONST_Postgis_Version', '2.5');
+ @define('CONST_Postgresql_Version', '12');
+ @define('CONST_Postgis_Version', '3');
  // Website settings
  @define('CONST_Website_BaseURL', '/');
  @define('CONST_Replication_Url', getenv("DOWNLOAD_PBF_UPDATES"));

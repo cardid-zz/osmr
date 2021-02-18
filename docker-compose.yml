@@ -49,7 +49,7 @@ services:
       - DOWNLOAD_PBF_UPDATES=http://download.geofabrik.de/russia/siberian-fed-district-updates
     volumes:
       - osm-file-data:/data
-      - osm-postgres-data:/var/lib/postgresql/11/main
+      - osm-postgres-data:/var/lib/postgresql/12/main
     logging:
       driver: "json-file"
       options:
@@ -68,4 +68,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /var/osm/postgresdata
+      device: /var/osm/data/postgresdata
