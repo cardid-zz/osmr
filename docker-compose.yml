@@ -50,6 +50,7 @@ services:
     volumes:
       - osm-file-data:/data
       - osm-postgres-data:/var/lib/postgresql/12/main
+      - ./local.php:/app/src/build/settings/local.php
     logging:
       driver: "json-file"
       options:
