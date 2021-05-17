@@ -56,6 +56,35 @@ services:
       options:
         max-file: "5"
         max-size: "10m"
+  osm-photon-import:
+    container_name: osm-photon-import
+    build: ./osm-photon
+    volumes:
+      - osm-photon-data:/data
+    links:
+      - "osm-geocoder:geocoder"
+    command: "-host geocoder -port 5432 -nominatim-import -languages ru"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+  osm-photon:
+    container_name: osm-photon
+    restart: always
+    build: ./osm-photon
+    ports:
+      - "2322:2322"
+    volumes:
+      - osm-photon-data:/data
+    links:
+      - "osm-geocoder:geocoder"
+    command: "-host geocoder -port 5432"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
 
 volumes:
   osm-file-data:
@@ -70,3 +99,9 @@ volumes:
       o: bind
       type: none
       device: /var/osm/data/postgresdata
+  osm-photon-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/osm/photon
