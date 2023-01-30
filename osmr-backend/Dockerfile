@@ -1,4 +1,4 @@
-FROM osrm/osrm-backend
+FROM ghcr.io/project-osrm/osrm-backend:v5.27.1
 
 RUN apt-get update \
  && apt-get install -y wget \
